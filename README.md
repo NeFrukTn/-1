@@ -1,42 +1,27 @@
-# Робота 2
-# Основи програмування на Python
-# Місто: Львів
-# Імʼя: Назар
+def factorial(n: int) -> int:
+    if n < 0:
+        raise ValueError("Факторіал не визначений для від’ємних чисел")
 
-# Основні типи даних
-text = "Привіт, Python"
-num = 5
-lst = [1, "a", 2.5]
-dct = {"імʼя": "Назар", "місто": "Львів"}
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+import unittest
+from main import factorial
 
-print(text, num, lst, dct)
 
-# Вбудовані константи та функції
-print(True)
-print("abs(-10) =", abs(-10))
+class TestFactorial(unittest.TestCase):
 
-# Цикл
-for i in range(3):
-    print("Ітерація:", i)
+    def test_factorial_positive(self):
+        self.assertEqual(factorial(0), 1)
+        self.assertEqual(factorial(1), 1)
+        self.assertEqual(factorial(5), 120)
 
-# Розгалуження
-if num > 0:
-    print("Число додатне")
-else:
-    print("Число відʼємне")
+    def test_factorial_negative(self):
+        with self.assertRaises(ValueError):
+            factorial(-3)
 
-# Обробка помилок
-try:
-    print(10 / 0)
-except Exception as e:
-    print("Помилка:", e)
-finally:
-    print("Кінець блоку try")
 
-# Контекст-менеджер
-with open(__file__, "r", encoding="utf-8") as f:
-    print("Файл успішно відкрито")
+if __name__ == "__main__":
+    unittest.main()
 
-# Lambda
-hello = lambda name: f"Привіт, {name}!"
-print(hello("Назар"))
